@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -8,7 +8,6 @@ import Sidenav from "examples/Sidenav";
 import Configurator from "examples/Configurator";
 import theme from "assets/theme";
 
-import { CacheProvider } from "@emotion/react";
 import routes from "routes";
 import { useVisionUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
@@ -33,9 +32,6 @@ export default function App() {
   };
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
-  useEffect(() => {
-    document.body.setAttribute("dir", direction);
-  }, [direction]);
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -78,49 +74,19 @@ export default function App() {
     </VuiBox>
   );
 
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider>
-        <CssBaseline />
-        {layout === "dashboard" && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand=""
-              brandName="Ignitriz"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <Switch>
-          {getRoutes(routes)}
-          <Redirect from="*" to="/dashboard" />
-        </Switch>
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
+  return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand=""
-            brandName="Ignitriz"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          <Configurator />
-          {configsButton}
-        </>
-      )}
-      {layout === "vr" && <Configurator />}
+      <Sidenav
+        color={sidenavColor}
+        brand=""
+        brandName="Ignitriz"
+        routes={routes}
+        onMouseEnter={handleOnMouseEnter}
+        onMouseLeave={handleOnMouseLeave}
+      />
+      <Configurator />
+      {configsButton}
       <Switch>
         {getRoutes(routes)}
         <Redirect from="*" to="/dashboard" />

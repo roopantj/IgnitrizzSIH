@@ -11,8 +11,7 @@ import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
 import { useVisionUIController, setMiniSidenav, setTransparentSidenav } from "context";
-import SimmmpleLogo from "examples/Icons/SimmmpleLogo";
-
+import Img from "../../assets/images/IgnitrizLogo.jpeg";
 function Sidenav({ color, brandName, routes, ...rest }) {
   const [controller, dispatch] = useVisionUIController();
   const { miniSidenav, transparentSidenav } = controller;
@@ -138,7 +137,7 @@ function Sidenav({ color, brandName, routes, ...rest }) {
                 })
               }
             >
-              <SimmmpleLogo size="24px" />
+              <img alt="" src={Img} height="36px" width="36px" />
             </VuiBox>
             <VuiTypography
               variant="button"
@@ -163,6 +162,7 @@ function Sidenav({ color, brandName, routes, ...rest }) {
       </VuiBox>
       <Divider light />
       <List>{renderRoutes}</List>
+      <Divider light />
     </SidenavRoot>
   );
 }
